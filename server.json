@@ -1,34 +1,33 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.dockndevai/mcp-oci",
-  "description": "Model Context Protocol server for Oracle Cloud Infrastructure — live resource discovery, dependency mapping, and Terraform generation, with security modes and access-control flags.",
-  "status": "active",
+  "description": "Oracle Cloud discovery + Terraform generation for AI agents — read-only, secret-safe.",
+  "version": "0.1.0",
   "repository": {
     "url": "https://github.com/dockndevai/mcp-oci",
     "source": "github"
   },
-  "version": "0.1.0",
   "packages": [
     {
-      "registry_type": "npm",
-      "registry_base_url": "https://registry.npmjs.org",
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@dockndevai/mcp-oci",
       "version": "0.1.0",
       "transport": {
         "type": "stdio"
       },
-      "environment_variables": [
+      "environmentVariables": [
         {
           "name": "OCI_PROFILE",
           "description": "Profile within ~/.oci/config (default DEFAULT).",
-          "is_required": false,
-          "is_secret": false
+          "isRequired": false,
+          "isSecret": false
         },
         {
           "name": "OCI_MODE",
           "description": "Access mode: read-only | read-write | admin.",
-          "is_required": false,
-          "is_secret": false
+          "isRequired": false,
+          "isSecret": false
         }
       ]
     }
