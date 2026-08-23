@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/dockndevai/mcp-oci/actions/workflows/ci.yml/badge.svg)](https://github.com/dockndevai/mcp-oci/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@dockndevai/mcp-oci)](https://www.npmjs.com/package/@dockndevai/mcp-oci)
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server for **Oracle Cloud Infrastructure (OCI)**. It gives an MCP-capable client (Claude Desktop, Claude Code, Cursor, Copilot, …) the ability to **discover live OCI resources, map how they relate, and generate reproducible Terraform** — with behaviour controlled entirely by flags.
 
@@ -34,15 +35,64 @@ Think of it as a Playwright-MCP for your cloud: instead of rebuilding infrastruc
 
 **Terraform** (read): `generate_terraform`, `generate_compartment_terraform`, `build_dependency_graph`
 
-## Use with your MCP client
+## Quickstart — add to your agent
 
-Works with Claude Code, Claude Desktop, Cursor, OpenAI Codex CLI, Windsurf, VS Code (Copilot), and any other MCP client — see **[docs/CLIENTS.md](docs/CLIENTS.md)** for per-client setup.
+Published on npm as [`@dockndevai/mcp-oci`](https://www.npmjs.com/package/@dockndevai/mcp-oci). No clone or build needed — your MCP client runs it on demand with `npx`. **Start in `read-only` mode**; see [`.env.example`](.env.example) for every variable and [docs/CLIENTS.md](docs/CLIENTS.md) for the full per-client guide.
 
-## Install
+**Claude Code** (CLI)
 
 ```bash
-npm install
-npm run build
+claude mcp add oci -e OCI_PROFILE="DEFAULT" -e OCI_MODE="read-only" -- npx -y @dockndevai/mcp-oci
+```
+
+**Claude Desktop · Cursor · Windsurf** — same block in `claude_desktop_config.json`, `.cursor/mcp.json`, or `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "oci": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@dockndevai/mcp-oci"
+      ],
+      "env": {
+        "OCI_PROFILE": "DEFAULT",
+        "OCI_MODE": "read-only"
+      }
+    }
+  }
+}
+```
+
+**OpenAI Codex CLI** — in `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.oci]
+command = "npx"
+args = ["-y", "@dockndevai/mcp-oci"]
+env = { OCI_PROFILE = "DEFAULT", OCI_MODE = "read-only" }
+```
+
+**VS Code (GitHub Copilot, Agent mode)** — in `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "oci": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@dockndevai/mcp-oci"
+      ],
+      "env": {
+        "OCI_PROFILE": "DEFAULT",
+        "OCI_MODE": "read-only"
+      }
+    }
+  }
+}
 ```
 
 ## Configure
@@ -50,30 +100,21 @@ npm run build
 Point it at a standard OCI config profile. For safety, use an IAM user/policy with
 read-only (`inspect`/`read`) permissions on the compartments you want the agent to see.
 
-## Run with Claude Desktop / Claude Code / Cursor
-
-```json
-{
-  "mcpServers": {
-    "oci": {
-      "command": "node",
-      "args": ["/absolute/path/to/mcp-oci/dist/index.js"],
-      "env": {
-        "OCI_PROFILE": "DEFAULT",
-        "OCI_MODE": "read-only",
-        "OCI_COMPARTMENT_ALLOWLIST": "ocid1.compartment.oc1..xxxx",
-        "OCI_REGION_ALLOWLIST": "us-ashburn-1"
-      }
-    }
-  }
-}
-```
-
-### Example prompts
+## Example prompts
 
 - *"List all compartments, then show every resource in the `prod` compartment."*
 - *"Generate Terraform for VCN `ocid1.vcn.oc1..…`."*
 - *"Build a dependency graph for compartment `…` and tell me the provisioning order."*
+
+## Run from source (development)
+
+Prefer the published package above. To run from a clone:
+
+```bash
+npm install
+npm run build
+node dist/index.js   # with the environment variables set
+```
 
 ## Develop
 
