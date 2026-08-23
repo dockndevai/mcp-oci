@@ -16,7 +16,7 @@ npm login
 npm publish --access public   # prepublishOnly runs the build first
 ```
 
-`package.json` already declares `"mcpName": "io.github.dockndevai/mcp-oci"`, which the official registry uses to verify npm ownership. After this, clients can run the server with `npx -y mcp-oci` (no local clone needed).
+`package.json` already declares `"mcpName": "io.github.dockndevai/mcp-oci"`, which the official registry uses to verify npm ownership. After this, clients can run the server with `npx -y @dockndevai/mcp-oci` (no local clone needed).
 
 ## 2. Official MCP Registry (registry.modelcontextprotocol.io)
 
@@ -30,7 +30,7 @@ mcp-publisher publish             # reads ./server.json
 
 ## 3. Smithery (smithery.ai)
 
-Smithery indexes GitHub MCP servers and can host/run them. Connect the GitHub repo at smithery.ai, or add a `smithery.yaml` describing the stdio command. Because this is an npm stdio server, the runtime command is `npx -y mcp-oci`.
+Smithery indexes GitHub MCP servers and can host/run them. Connect the GitHub repo at smithery.ai, or add a `smithery.yaml` describing the stdio command. Because this is an npm stdio server, the runtime command is `npx -y @dockndevai/mcp-oci`.
 
 ## 4. Glama (glama.ai/mcp/servers)
 
