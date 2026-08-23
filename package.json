@@ -1,0 +1,59 @@
+{
+  "name": "mcp-oci",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for Oracle Cloud Infrastructure — live resource discovery, dependency mapping, and Terraform generation, with security modes and access-control flags.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankitcs17071993/mcp-oci.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ankitcs17071993/mcp-oci/issues"
+  },
+  "homepage": "https://github.com/ankitcs17071993/mcp-oci#readme",
+  "bin": {
+    "mcp-oci": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "oci",
+    "oracle-cloud",
+    "terraform",
+    "iac",
+    "devops",
+    "llm",
+    "ai"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "oci-common": "^2.100.0",
+    "oci-core": "^2.100.0",
+    "oci-identity": "^2.100.0",
+    "oci-resourcesearch": "^2.100.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.7"
+  }
+}
