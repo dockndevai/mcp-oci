@@ -1,6 +1,6 @@
 # mcp-oci
 
-[![CI](https://github.com/ankitcs17071993/mcp-oci/actions/workflows/ci.yml/badge.svg)](https://github.com/ankitcs17071993/mcp-oci/actions/workflows/ci.yml)
+[![CI](https://github.com/dockndevai/mcp-oci/actions/workflows/ci.yml/badge.svg)](https://github.com/dockndevai/mcp-oci/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server for **Oracle Cloud Infrastructure (OCI)**. It gives an MCP-capable client (Claude Desktop, Claude Code, Cursor, Copilot, …) the ability to **discover live OCI resources, map how they relate, and generate reproducible Terraform** — with behaviour controlled entirely by flags.
