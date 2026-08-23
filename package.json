@@ -1,5 +1,6 @@
 {
   "name": "mcp-oci",
+  "mcpName": "io.github.dockndevai/mcp-oci",
   "version": "0.1.0",
   "description": "Model Context Protocol server for Oracle Cloud Infrastructure — live resource discovery, dependency mapping, and Terraform generation, with security modes and access-control flags.",
   "type": "module",
