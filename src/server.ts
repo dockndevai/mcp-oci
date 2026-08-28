@@ -4,9 +4,10 @@ import { OciClient } from "./oci/client.js";
 import { PolicyError, SecurityPolicy } from "./security.js";
 import { discoveryTools } from "./tools/discovery.js";
 import { terraformTools } from "./tools/terraform.js";
+import { annotationsFor } from "./tools/annotations.js";
 import type { ToolContext, ToolDef } from "./tools/types.js";
 
-const ALL_TOOLS: ToolDef[] = [...discoveryTools, ...terraformTools];
+export const ALL_TOOLS: ToolDef[] = [...discoveryTools, ...terraformTools];
 
 export async function buildServer(
   config: AppConfig,
@@ -15,13 +16,13 @@ export async function buildServer(
   const client = await OciClient.create(config.connection);
   const ctx: ToolContext = { client, policy };
 
-  const server = new McpServer({ name: "mcp-oci", version: "0.1.0" });
+  const server = new McpServer({ name: "mcp-oci", version: "0.1.1" });
 
   const enabled: string[] = [];
   for (const tool of ALL_TOOLS) {
     if (!policy.isCapabilityEnabled(tool.capability)) continue;
     enabled.push(tool.name);
-    server.registerTool(tool.name, tool.config, async (args: Record<string, unknown>) => {
+    server.registerTool(tool.name, { ...tool.config, annotations: annotationsFor(tool) }, async (args: Record<string, unknown>) => {
       try {
         return await tool.handler(args ?? {}, ctx);
       } catch (err) {
