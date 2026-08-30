@@ -16,7 +16,7 @@ export async function buildServer(
   const client = await OciClient.create(config.connection);
   const ctx: ToolContext = { client, policy };
 
-  const server = new McpServer({ name: "mcp-oci", version: "0.1.1" });
+  const server = new McpServer({ name: "mcp-oci", version: "0.1.2" });
 
   const enabled: string[] = [];
   for (const tool of ALL_TOOLS) {
