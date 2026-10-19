@@ -4,6 +4,16 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6] - 2026-10-19
+
+### Changed
+- Routine dependency/security maintenance. `npm audit --audit-level=high` reported 0
+  vulnerabilities both before and after this pass (no high/critical advisories to fix).
+- Took safe in-range patch bumps: `oci-common`/`oci-core`/`oci-identity`/`oci-resourcesearch`
+  ^2.100.0 → ^2.143.0, `zod` ^4.5.4 → ^4.6.7, `vitest` ^5.0.0 → ^5.0.5.
+- No direct dependency crossed a major version boundary; `npm run typecheck`, `npm run build`,
+  and `npm test` all pass; final `npm audit` is clean.
+
 ## [0.1.5] - 2026-10-12
 
 ### Security

@@ -1,7 +1,7 @@
 {
   "name": "@dockndevai/mcp-oci",
   "mcpName": "io.github.dockndevai/mcp-oci",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Model Context Protocol server for Oracle Cloud Infrastructure — live resource discovery, dependency mapping, and Terraform generation, with security modes and access-control flags.",
   "type": "module",
   "license": "MIT",
@@ -45,16 +45,16 @@
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
-    "oci-common": "^2.100.0",
-    "oci-core": "^2.100.0",
-    "oci-identity": "^2.100.0",
-    "oci-resourcesearch": "^2.100.0",
-    "zod": "^4.5.4"
+    "oci-common": "^2.143.0",
+    "oci-core": "^2.143.0",
+    "oci-identity": "^2.143.0",
+    "oci-resourcesearch": "^2.143.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26.5.0",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.5"
   }
 }
