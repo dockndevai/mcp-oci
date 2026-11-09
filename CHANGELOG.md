@@ -4,6 +4,23 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9] - 2026-11-09
+
+### Changed
+- Routine dependency/security maintenance. `npm audit --audit-level=high` reported 0
+  vulnerabilities before and after this pass.
+- Took safe in-range patch/minor bumps: `oci-common`, `oci-core`, `oci-identity`,
+  `oci-resourcesearch` 2.144.0 → 2.145.0; `vitest` 5.0.5 → 5.1.0 (dev dependency). No
+  direct dependency crossed a major version boundary; `npm run typecheck`, `npm run build`,
+  and `npm test` all pass; final `npm audit` is clean.
+
+### Note
+- v0.1.5–v0.1.8 are committed to `main` from prior maintenance passes but were never
+  tagged/released — the npm registry's `latest` dist-tag is still 0.1.4 (latest git tag
+  v0.1.4). Tagging/publishing is blocked for this automated session (pushing a `v*` tag is
+  denied by the session's permission policy as "create public surface"); a human needs to
+  push the release tag(s) to actually publish.
+
 ## [0.1.8] - 2026-11-02
 
 ### Changed
