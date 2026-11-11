@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { redactSecrets } from "../redact.js";
+import { assertResourceInScope, filterToAllowedCompartments } from "../scope.js";
 import type { ToolDef } from "./types.js";
 import { jsonResult } from "./types.js";
 
@@ -60,10 +61,12 @@ export const discoveryTools: ToolDef[] = [
     },
     handler: async (args, { client, policy }) => {
       policy.guard({ tool: "search_resources", capability: "read", region: client.region });
-      const items = await client.searchResources(
+      const found = await client.searchResources(
         args.query as string,
         !(args.freeText as boolean | undefined),
       );
+      // The query is free-form and tenancy-wide: enforce the compartment allowlist on what comes back.
+      const items = await filterToAllowedCompartments(client, policy, "search_resources", found);
       const summarized = items.map((r) => ({
         resourceType: r.resourceType,
         identifier: r.identifier,
@@ -127,6 +130,7 @@ export const discoveryTools: ToolDef[] = [
         args.ocid as string,
         compartmentId,
       );
+      await assertResourceInScope(client, policy, "get_resource", resource);
       return jsonResult(redactSecrets(resource));
     },
   },

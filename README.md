@@ -22,7 +22,7 @@ Think of it as a Playwright-MCP for your cloud: instead of rebuilding infrastruc
 | Concern | Flag | Default | Effect |
 | --- | --- | --- | --- |
 | What can the server do? | `OCI_MODE` | `read-only` | All shipped tools are read-only. `read-write`/`admin` are reserved for future provisioning and currently expose no extra tools. |
-| Which compartments are in scope? | `OCI_COMPARTMENT_ALLOWLIST` | *(all)* | When set, operations on other compartments are refused. |
+| Which compartments are in scope? | `OCI_COMPARTMENT_ALLOWLIST` | *(all)* | When set, operations on other compartments are refused, and search / fetch results from other compartments are dropped or refused (checked against the resource's real compartment). |
 | Which regions are reachable? | `OCI_REGION_ALLOWLIST` | *(configured region)* | When set, only these regions may be targeted. |
 | Can it run `terraform apply`? | `OCI_ALLOW_APPLY` | `false` | Reserved gate for provisioning (not yet shipped). |
 | Preview without executing | `OCI_DRY_RUN` | `false` | For future write tools: validate + log intent without executing. |

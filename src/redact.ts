@@ -22,7 +22,9 @@ function walk(value: unknown): unknown {
   if (value && typeof value === "object") {
     const out: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      if (SECRET_KEY_PATTERN.test(k) && v !== null && typeof v !== "object") {
+      if (SECRET_KEY_PATTERN.test(k) && v !== null && v !== undefined) {
+        // Primitive OR structured: a secret-named key holding an object/array is redacted whole,
+        // not walked (its inner keys — e.g. `value`, `content` — need not look secret-shaped).
         out[k] = REDACTED;
       } else {
         out[k] = walk(v);
