@@ -8,6 +8,7 @@ import { IdentityClient } from "oci-identity";
 import { ComputeClient, VirtualNetworkClient } from "oci-core";
 import { ResourceSearchClient, models as rsModels } from "oci-resourcesearch";
 import type { OciConnection } from "../config.js";
+import { assertOcid } from "../scope.js";
 import type { OciResource } from "../terraform/generate.js";
 
 export class OciClient {
@@ -104,7 +105,7 @@ export class OciClient {
 
   /** List every resource in a compartment via Resource Search. */
   async listCompartmentResources(compartmentId: string) {
-    const query = `query all resources where compartmentId = '${compartmentId}'`;
+    const query = `query all resources where compartmentId = '${assertOcid(compartmentId, "compartment OCID")}'`;
     return this.searchResources(query, true);
   }
 

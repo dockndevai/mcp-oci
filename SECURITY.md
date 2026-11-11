@@ -15,7 +15,9 @@ privileged automation and grant it the least access it needs.
   control is the OCI user/policy the config profile authenticates as. Grant it
   read-only policies (e.g. `inspect`/`read`) on only the compartments you intend.
 - **Pin the blast radius.** Use `OCI_COMPARTMENT_ALLOWLIST` and
-  `OCI_REGION_ALLOWLIST` to constrain which compartments and regions are reachable.
+  `OCI_REGION_ALLOWLIST` to constrain which compartments and regions are reachable. The compartment
+  allowlist is enforced on the resource's *real* compartment: `search_resources` drops results outside it and
+  `get_resource` / `generate_terraform` refuse a resource outside it, whatever compartment the caller claimed.
 - **Provisioning is gated and not yet shipped.** The `write`/`admin` modes and the
   `OCI_ALLOW_APPLY` flag exist so `terraform apply` can be added later behind an
   explicit opt-in. Until then those tiers expose no additional tools.

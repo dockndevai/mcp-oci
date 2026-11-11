@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { redactSecrets } from "../redact.js";
+import { assertResourceInScope } from "../scope.js";
 import { generateModule, generateTerraform, type OciResource } from "../terraform/generate.js";
 import { buildDependencyGraph, provisioningOrder } from "../terraform/graph.js";
 import type { ToolDef } from "./types.js";
@@ -34,6 +35,7 @@ export const terraformTools: ToolDef[] = [
         args.ocid as string,
         compartmentId,
       );
+      await assertResourceInScope(client, policy, "generate_terraform", resource);
       const { hcl, recognized } = generateTerraform(redactSecrets(resource));
       return { content: [{ type: "text" as const, text: hcl }], recognized };
     },

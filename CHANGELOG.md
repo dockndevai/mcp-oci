@@ -4,6 +4,21 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.10] - 2026-11-11
+
+### Security
+- **`OCI_COMPARTMENT_ALLOWLIST` is now enforced on what is returned, not only on what the caller claims.**
+  Previously the allowlist was checked against a `compartmentId` argument supplied by the caller, so with an
+  allowlist set: `search_resources` (a free-form, tenancy-wide query) returned resources from every compartment,
+  and `get_resource` / `generate_terraform` returned any resource by OCID when `compartmentId` was omitted or
+  set to an allowlisted compartment. Now `search_resources` drops results whose real compartment is not
+  allowlisted (allowlist entries may be OCIDs or compartment names), and `get_resource` / `generate_terraform`
+  refuse a resource whose real compartment is outside the allowlist. Behaviour with no allowlist is unchanged.
+- `compartmentId` is validated as an OCID before it is interpolated into the Resource Search query
+  (hardening — the allowlist already exact-matched the raw string).
+- Secret redaction now redacts a secret-named key **whole** when it holds an object or array; before, only
+  primitive values under secret-shaped keys were replaced and structured values were walked.
+
 ## [0.1.9] - 2026-11-09
 
 ### Changed

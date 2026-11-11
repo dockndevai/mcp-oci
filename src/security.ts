@@ -68,6 +68,21 @@ export class SecurityPolicy {
     return CAPABILITY_RANK[capability] <= MODE_RANK[this.config.mode];
   }
 
+  /** The configured compartment allowlist (empty = unrestricted). */
+  get compartmentAllowlist(): readonly string[] {
+    return this.config.compartmentAllowlist;
+  }
+
+  /** Audit that results outside the allowlist were dropped from a tool's output. */
+  noteFiltered(tool: string, dropped: number): void {
+    this.audit({ tool, capability: "read" }, "FILTER", `${dropped} result(s) outside the compartment allowlist dropped`);
+  }
+
+  /** Audit that a resource outside the allowlist was refused. */
+  noteDenied(tool: string, compartment: string): void {
+    this.audit({ tool, capability: "read", compartment }, "DENY", `resource compartment '${compartment}' not in allowlist`);
+  }
+
   isCompartmentAllowed(compartment: string): boolean {
     if (this.config.compartmentAllowlist.length === 0) return true;
     return this.config.compartmentAllowlist.includes(compartment);
