@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.12] - 2026-11-23
+
+### Changed
+- Bumped `oci-common`, `oci-core`, `oci-identity`, `oci-resourcesearch` from 2.146.0 to 2.147.0 (minor, within existing `^2.145.0` range).
+- Bumped `vitest` from 5.1.0 to 5.1.1 (patch, within existing `^5.1.0` range).
+- `npm audit` reports 2 moderate advisories (GHSA-qv5m-9pm6-hqp3, GHSA-jpvv-r467-5p4w in `@hono/node-server`; GHSA-4m76-xfj5-7975, GHSA-h7mg-cq63-vhpq, GHSA-3gg2-335m-rxc6, GHSA-46wx-v44x-9hh2, GHSA-4h7h-rv7c-7m2v in `hono`) with no high/critical findings; left as-is since none reach the high/critical threshold for this maintenance pass.
+
 ## [0.1.11] - 2026-11-16
 
 ### Changed
